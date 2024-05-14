@@ -20,7 +20,7 @@ import requests
 # selected_year = st.sidebar.selectbox('Year', list(reversed(range(1950,2020))))
 
 # Web scraping of NBA player stats
-@st.cache
+@st.cache_data
 def load_data(year):
     #url = "https://www.baseball-reference.com/leagues/majors/" + str(year) + ".shtml"
     url = "https://www.mlb.com/stats/"
