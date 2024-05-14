@@ -18,7 +18,7 @@ import numpy as np
 # selected_year = st.sidebar.selectbox('Year', list(reversed(range(1950,2020))))
 
 # Web scraping of NBA player stats
-#@st.cache
+@st.cache
 def load_data(year):
     url = "https://www.baseball-reference.com/leagues/majors/" + str(year) + ".shtml"
     html = pd.read_html(url, header = 0, flavor='lxml')
@@ -32,7 +32,8 @@ playerstats = load_data(2023)
 
 # Sidebar - Team selection
 unique_team = playerstats.Tm.unique()
-selected_team = st.sidebar.multiselect('Team', unique_team, unique_team)
+#selected_team = st.sidebar.multiselect('Team', unique_team, unique_team)
+
 
 # # Sidebar - Position selection
 # unique_pos = ['C','PF','SF','PG','SG']
