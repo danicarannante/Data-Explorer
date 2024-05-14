@@ -21,18 +21,19 @@ import requests
 # Web scraping of NBA player stats
 @st.cache
 def load_data(year):
-    url = "https://www.baseball-reference.com/leagues/majors/" + str(year) + ".shtml"
+    #url = "https://www.baseball-reference.com/leagues/majors/" + str(year) + ".shtml"
+    url = "https://www.mlb.com/stats/"
     response = requests.get(url)
     html = pd.read_html(response.content)
     df = html[0]
-    #raw = df.drop(df[df.Tm == 'Tm'].index) # Deletes repeating headers in content
-    print(df)
+    raw = df.drop(df[df.PLAYERPLAYER == 'PLAYERPLAYER'].index) # Deletes repeating headers in content
+
     return df
 
 playerstats = load_data(2023)
 
 # Sidebar - Team selection
-unique_team = playerstats.Tm.unique()
+unique_team = playerstats.TEAMTEAM.unique()
 print(unique_team)
 
 #selected_team = st.sidebar.multiselect('Team', unique_team, unique_team)
