@@ -6,6 +6,7 @@ import base64
 #import seaborn as sns
 import numpy as np
 import lxml
+import requests
 
 # st.title('MLB Player Stats Explorer')
 
@@ -22,7 +23,8 @@ import lxml
 @st.cache
 def load_data(year):
     url = "https://www.baseball-reference.com/leagues/majors/" + str(year) + ".shtml"
-    html = pd.read_html(url, header = 0, flavor='lxml')
+    response = requests.get(url)
+    html = pd.read_html(response.content)
     df = html[0]
     #raw = df.drop(df[df.Tm == 'Tm'].index) # Deletes repeating headers in content
     print(df)
