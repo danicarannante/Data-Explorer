@@ -23,15 +23,16 @@ def load_data(year):
     url = "https://www.baseball-reference.com/leagues/majors/" + str(year) + ".shtml"
     html = pd.read_html(url, header = 0, flavor='lxml')
     df = html[0]
-    raw = df.drop(df[df.Tm == 'Tm'].index) # Deletes repeating headers in content
-    stats = raw.fillna(0)
-    print(stats)
-    return stats
+    #raw = df.drop(df[df.Tm == 'Tm'].index) # Deletes repeating headers in content
+    print(df)
+    return df
 
 playerstats = load_data(2023)
 
 # Sidebar - Team selection
 unique_team = playerstats.Tm.unique()
+print(unique_team)
+
 #selected_team = st.sidebar.multiselect('Team', unique_team, unique_team)
 
 
