@@ -6,7 +6,7 @@ import base64
 #import seaborn as sns
 import numpy as np
 import requests
-import lxml
+
 
 # st.title('MLB Player Stats Explorer')
 
