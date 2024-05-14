@@ -27,9 +27,8 @@ def load_data(year):
     html = pd.read_html(response.content)
     df = html[0]
     raw = df.drop(df[df.PLAYERPLAYER == 'PLAYERPLAYER'].index) # Deletes repeating headers in content
-
+    print(raw)
     return df
-
 playerstats = load_data(2023)
 
 # Sidebar - Team selection
