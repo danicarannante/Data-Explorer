@@ -36,7 +36,7 @@ playerstats = load_data(2023)
 unique_team = playerstats.TEAMTEAM.unique()
 print(unique_team)
 
-#selected_team = st.sidebar.multiselect('Team', unique_team, unique_team)
+selected_team = st.sidebar.multiselect('Team', unique_team, unique_team)
 
 
 # # Sidebar - Position selection
