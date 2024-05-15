@@ -4,3 +4,5 @@ lxml
 numpy
 matplotlib
 base58
+libxml2
+libxslt
