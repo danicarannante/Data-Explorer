@@ -1,7 +1,6 @@
-streamlit==0.61.0
-pandas==0.25.3
+streamlit
+pandas
 lxml
-numpy==1.19
-seaborn==0.10.0
+numpy
 matplotlib
 base58
