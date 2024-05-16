@@ -44,41 +44,45 @@ st.header(f'Display Team Stats of {selected_team}')
 st.dataframe(df_selected_team)
 
 
-# # history graph
-# y0 = playerstats[['Tm','H','HR','R']]
-# y1 = load_data(selected_year - 1)[['Tm','H','HR','R']]
-# y2 = load_data(selected_year - 2)[['Tm','H','HR','R']]
-# y3 = load_data(selected_year - 3)[['Tm','H','HR','R']]
+# history graph
+y0 = playerstats[['Tm','H','HR','R']]
+y1 = load_data(selected_year - 1)[['Tm','H','HR','R']]
+y2 = load_data(selected_year - 2)[['Tm','H','HR','R']]
+y3 = load_data(selected_year - 3)[['Tm','H','HR','R']]
 
-# y0['Year'] = selected_year 
-# y1['Year'] = selected_year - 1
-# y2['Year'] = selected_year - 2
-# y3['Year'] = selected_year - 3
-
-# # Combine all years into one DataFrame
-# combined_df = pd.concat([y0, y1, y2, y3])
+y0['Year'] = selected_year 
+y1['Year'] = selected_year - 1
+y2['Year'] = selected_year - 2
+y3['Year'] = selected_year - 3
 
 
-# # Melt the DataFrame to have 'Year' as id variable
-# melted_df = pd.melt(combined_df, id_vars=['Year', 'Tm'], var_name='Stat', value_name='Value')
-# print(melted_df.to_numeric(s, errors='ignore'))
-# print(melted_df.dtypes)
+# Combine datasets
+combined_data = [y0, y1, y2, y3]
+years = [selected_year, selected_year - 1, selected_year - 2, selected_year - 3]
 
-# # Filter DataFrame for the selected team
-# selected_team_df = melted_df[melted_df['Tm'] == selected_team]
+# Set colors for each year
+colors = ['red', 'blue', 'green', 'orange']
 
-# # Plotting using Matplotlib scatter plot
-# plt.figure(figsize=(10, 6))
+# Create subplots for each statistic
+fig, axs = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
 
-# for year in selected_team_df['Year'].unique():
-#     year_data = selected_team_df[selected_team_df['Year'] == year]
-#     plt.scatter(year_data['Stat'], year_data['Value'], label=str(year))
-#     plt.plot(year_data['Stat'], year_data['Value'], marker='o', linestyle='-')
+# Plot scatter plot for each statistic
+for i, stat in enumerate(['H', 'HR', 'R']):
+    for j, data in enumerate(combined_data):
+        axs[i].scatter(data[stat], data['Tm'], label=str(years[j]), color=colors[j], alpha=0.7)
+    axs[i].set_xlabel(stat)
 
-# plt.title('Team A Stats Over the Years')
-# plt.xlabel('Stat')
-# plt.ylabel('Value')
-# plt.legend()
+# Set common y-axis label and title
+fig.text(0.5, 0.04, 'Teams (Tm)', ha='center')
+fig.suptitle('Scatter Plots of Hits (H), Home Runs (HR), and Runs (R)')
+
+# Add legend to the last subplot
+axs[-1].legend()
+
+# Show plot
+plt.tight_layout()
+plt.show()
+
 
 # # Display plot in Streamlit
-# st.pyplot(plt)
+st.pyplot(plt)
