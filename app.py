@@ -17,7 +17,7 @@ import requests
 # """)
 
 st.sidebar.header('User Input Features')
-selected_year = st.sidebar.selectbox('Year', list(reversed(range(1980,2025))))
+selected_year = st.sidebar.selectbox('Year', list(reversed(range(1980,2023))))
 
 # Web scraping of NBA player stats
 @st.cache_data
@@ -43,46 +43,3 @@ df_selected_team = playerstats[(playerstats.Tm == selected_team)]
 st.header(f'Display Team Stats of {selected_team}')
 st.dataframe(df_selected_team)
 
-
-# history graph
-y0 = playerstats[['Tm','H','HR','R']]
-y1 = load_data(selected_year - 1)[['Tm','H','HR','R']]
-y2 = load_data(selected_year - 2)[['Tm','H','HR','R']]
-y3 = load_data(selected_year - 3)[['Tm','H','HR','R']]
-
-y0['Year'] = selected_year 
-y1['Year'] = selected_year - 1
-y2['Year'] = selected_year - 2
-y3['Year'] = selected_year - 3
-
-
-# Combine datasets
-combined_data = [y0, y1, y2, y3]
-years = [selected_year, selected_year - 1, selected_year - 2, selected_year - 3]
-
-# Set colors for each year
-colors = ['red', 'blue', 'green', 'orange']
-
-# Create subplots for each statistic
-fig, axs = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
-
-# Plot scatter plot for each statistic
-for i, stat in enumerate(['H', 'HR', 'R']):
-    for j, data in enumerate(combined_data):
-        axs[i].scatter(data[stat], data['Tm'], label=str(years[j]), color=colors[j], alpha=0.7)
-    axs[i].set_xlabel(stat)
-
-# Set common y-axis label and title
-fig.text(0.5, 0.04, 'Teams (Tm)', ha='center')
-fig.suptitle('Scatter Plots of Hits (H), Home Runs (HR), and Runs (R)')
-
-# Add legend to the last subplot
-axs[-1].legend()
-
-# Show plot
-plt.tight_layout()
-plt.show()
-
-
-# # Display plot in Streamlit
-st.pyplot(plt)
