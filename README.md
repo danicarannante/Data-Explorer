@@ -26,3 +26,8 @@ MLB Data Explorer is a web application designed to help users explore Major Leag
 2. Ensure you have Python installed along with the necessary libraries. You can install the required libraries using:
    ```sh
    pip install streamlit pandas requests matplotlib numpy
+
+
+     The information used here was obtained free of
+     charge from and is copyrighted by Retrosheet.  Interested
+     parties may contact Retrosheet at "www.retrosheet.org".
